@@ -1,0 +1,10 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "bioinformatics"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
