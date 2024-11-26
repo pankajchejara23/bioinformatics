@@ -432,7 +432,7 @@ Dataset download
 <pre><code>Number of species after filtering: 156</code></pre>
 </div>
 </div>
-<div id="7fe957e7" class="cell" data-execution_count="180">
+<div id="dadb38cc" class="cell" data-execution_count="180">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -592,7 +592,7 @@ Age
 <p>We noticed <strong>statistical differences in age of groups neoplasma-free and early-stage CRC, </strong> and <strong>adenoma and early-stage CRC</strong>.</p>
 </div>
 </div>
-<div id="6bb08c87" class="cell" data-execution_count="243">
+<div id="f1645a30" class="cell" data-execution_count="243">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statannot <span class="im">import</span> add_stat_annotation</span>
@@ -670,7 +670,7 @@ Figure&nbsp;1: Age/BMI distribution
 <h2 class="anchored" data-anchor-id="crc-classifier-based-on-metadata">CRC classifier based on metadata</h2>
 <p>Now, we will build a CRC classifier using <code>gender</code>,<code>age</code> and <code>BMI</code> data. This will help us setting a performance baseline for our metagenomic classifier (the one we will build in the later stage using relative abundance data).</p>
 <p>For this classification task, we will <strong>merge control and adenoma into negative class (0) and early and late stages into positive class (1)</strong>.</p>
-<div id="122d7659" class="cell" data-execution_count="351">
+<div id="9bf51087" class="cell" data-execution_count="351">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold, GridSearchCV, cross_val_score</span>
@@ -826,7 +826,7 @@ Figure&nbsp;2: Metadata-based CRC classifier performance (AUC)
 </ul>
 <p>Our new classifier gained improvement for the classification task for <strong>tumor-free patients</strong> and <strong>CRC patients</strong>. The new performance is <strong>AUC = .74</strong> using alpha diversity measures at <strong>phylum</strong> level. The use of same measures but at genus level, however, downgraded the performance (.60 AUC).</p>
 <p><a href="#fig-model-meta-alpha" class="quarto-xref">Figure&nbsp;3</a> shows the AUC curves for models using alpha diversity measures at genus and phylum levels.</p>
-<div id="4ab62676" class="cell" data-execution_count="283">
+<div id="f845fc9f" class="cell" data-execution_count="283">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skbio.diversity <span class="im">import</span> alpha</span>
@@ -912,7 +912,7 @@ Figure&nbsp;3: Metadata &amp; microbiol composition metrices CRC classifier perf
 <section id="building-metagenomic-crc-classifier" class="level3">
 <h3 class="anchored" data-anchor-id="building-metagenomic-crc-classifier">Building metagenomic CRC classifier</h3>
 <p>Now, we will move towards building a CRC classifier using relative abudance data of species which we obtained after our filtering (see above for the info).</p>
-<p>We used <strong>20 microbial species</strong> which were selected in Zeller et al.&nbsp;(2014). These species are given below.</p>
+<p>We used <strong>22 microbial species</strong> which were selected in Zeller et al.&nbsp;(2014). These species are given below.</p>
 <pre><code>selected_species = [
     'Fusobacterium_nucleatum',
     'Eubacterium_rectale',
@@ -937,7 +937,7 @@ Figure&nbsp;3: Metadata &amp; microbiol composition metrices CRC classifier perf
     'Ruminococcus_sp',
     'Streptococcus_salivarius',
 ]</code></pre>
-<div id="9979d48c" class="cell" data-execution_count="371">
+<div id="bd649b11" class="cell" data-execution_count="371">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fetching all microbial species </span></span>
@@ -981,6 +981,27 @@ Figure&nbsp;4: Metadata &amp; microbiol species CRC classifier performance (AUC)
 </div>
 </div>
 </div>
+<div id="cell-fig-model-meta-species-alpha" class="cell" data-execution_count="380">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>X_phylum_alpha_species <span class="op">=</span> pd.concat([X_phylum_alpha, microbiome_selected],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>build_classifier(X_phylum_alpha_species, y_num, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 title<span class="op">=</span><span class="st">'CRC classifier using 22 species, alpha measures and metadata'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-model-meta-species-alpha" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model-meta-species-alpha-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Building CRC classifier_files/figure-html/fig-model-meta-species-alpha-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-meta-species-alpha-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Metadata &amp; microbiol species CRC classifier performance (AUC)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="distribution-of-22-selected-microbial-species-across-different-classes" class="level2">
@@ -989,23 +1010,23 @@ Figure&nbsp;4: Metadata &amp; microbiol species CRC classifier performance (AUC)
 <div id="6193be68" class="cell" data-execution_count="369">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>X_metadata_species <span class="op">=</span> pd.concat([microbiome_selected,metadata.reset_index()],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> X_metadata_species.melt(id_vars<span class="op">=</span>[ <span class="st">'class'</span>],value_vars<span class="op">=</span>selected_species)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>melted_df[<span class="st">'value'</span>] <span class="op">=</span> melted_df[<span class="st">'value'</span>] <span class="op">+</span> <span class="fl">.000001</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">20</span>))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>melted_df, x<span class="op">=</span><span class="st">'value'</span>, y<span class="op">=</span><span class="st">'variable'</span>, hue<span class="op">=</span><span class="st">'class'</span>, palette <span class="op">=</span> color_palette)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Relative abundance (log-scaled)'</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Species'</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of 22 selected microbial species'</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>X_metadata_species <span class="op">=</span> pd.concat([microbiome_selected,metadata.reset_index()],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> X_metadata_species.melt(id_vars<span class="op">=</span>[ <span class="st">'class'</span>],value_vars<span class="op">=</span>selected_species)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>melted_df[<span class="st">'value'</span>] <span class="op">=</span> melted_df[<span class="st">'value'</span>] <span class="op">+</span> <span class="fl">.000001</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">20</span>))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>melted_df, x<span class="op">=</span><span class="st">'value'</span>, y<span class="op">=</span><span class="st">'variable'</span>, hue<span class="op">=</span><span class="st">'class'</span>, palette <span class="op">=</span> color_palette)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Relative abundance (log-scaled)'</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Species'</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of 22 selected microbial species'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Building CRC classifier_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Building CRC classifier_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
