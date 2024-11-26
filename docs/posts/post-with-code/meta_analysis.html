@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Pankaj Chejara">
 <meta name="dcterms.date" content="2024-11-19">
 
-<title>Metagenomic Analysis of Gut Microbiome for their Association with Colorectal Cancer – bioinformatics</title>
+<title>bioinformatics - Metagenomic Analysis of Gut Microbiome for their Association with Colorectal Cancer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This post delves into the field of bioinformatics to illustrate the potential of metagenomic data to predict colorectal cancer. Metagenomics data are produced by high-throughput sequencing machines and typically require a substantial amount of compute and storage resources.</p>
 <p>In this post, we will utilize <strong>processed metagenomics data from different cohorts on colorectal cancer</strong>. The dataset (relative abundance) is available <a href="http://segatalab.cibio.unitn.it/data/Thomas_et_al.html">here</a>.</p>
 <p>The <strong>relative abundance dataset</strong> contains samples from datasets from previous research studies as well as their own datasets. The below table provides a summary of cohorts and their information.</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 35%">
@@ -286,7 +286,7 @@ Downloading dataset using accession number
 <p>Let’s load the dataset first and then explore it a bit.</p>
 <section id="loading-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-dataset">Loading the dataset</h3>
-<div id="894f0d26-9b58-447b-b72d-4b240588a7c2" class="cell" data-execution_count="201">
+<div id="894f0d26-9b58-447b-b72d-4b240588a7c2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -295,11 +295,12 @@ Downloading dataset using accession number
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.rename(columns<span class="op">=</span>data.loc[<span class="dv">0</span>]).drop(<span class="dv">0</span>, axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="201">
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -454,9 +455,10 @@ Downloading dataset using accession number
 </div>
 </div>
 </div>
+</div>
 <p>The processed dataset contains <strong>metadata information</strong> such as <code>body_site</code>, <code>study_condition</code> along with <strong>abundance data of microbial species</strong>.</p>
 <p>We will first start with <strong>Zeller et al., 2014</strong> dataset. For that we will perform filtering based on dataset name and <strong>extract Bacteria kingdom</strong> only.</p>
-<div id="ae6fffd2-bf11-40f9-a110-b37b31d5046a" class="cell" data-execution_count="155">
+<div id="ae6fffd2-bf11-40f9-a110-b37b31d5046a" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># accessing Zeller et al., 2014 dataset</span></span>
@@ -549,9 +551,10 @@ Downloading dataset using accession number
 <div id="dfb96aea-dfeb-44ac-8661-ff58f2bc1039" class="cell" data-execution_count="125">
 <div class="cell-output cell-output-display" data-execution_count="125">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">subjectID</th>
@@ -706,15 +709,17 @@ Downloading dataset using accession number
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="taxonomy-heirarchy-table" class="level4">
 <h4 class="anchored" data-anchor-id="taxonomy-heirarchy-table">Taxonomy heirarchy table</h4>
 <div id="2f3151bd-a9aa-4550-9aa0-ee722fae5642" class="cell" data-execution_count="127">
 <div class="cell-output cell-output-display" data-execution_count="127">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -794,15 +799,17 @@ Downloading dataset using accession number
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="sample-table" class="level4">
 <h4 class="anchored" data-anchor-id="sample-table">Sample table</h4>
 <div id="94b4a98e-f0f0-4de0-9c9f-ac58fe6fcf44" class="cell" data-execution_count="129">
 <div class="cell-output cell-output-display" data-execution_count="129">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -882,6 +889,7 @@ Downloading dataset using accession number
 </div>
 </div>
 </div>
+</div>
 </section>
 </section>
 </section>
@@ -889,12 +897,13 @@ Downloading dataset using accession number
 <h2 class="anchored" data-anchor-id="visualizing-species-distribution-between-healthy-and-crc-patients">Visualizing species distribution between healthy and CRC patients</h2>
 <p>We will now visualize the distribution of species in the dataset among healthy and CRC patients.</p>
 <p>For that we will first aggregate data on family level. The table below shows aggregated abundance at phylum rank.</p>
-<div id="9675cbbe-c09e-4014-b691-3d556b9dfef9" class="cell" data-execution_count="412">
-<div class="cell-output cell-output-display" data-execution_count="412">
+<div id="9675cbbe-c09e-4014-b691-3d556b9dfef9" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1009,6 +1018,7 @@ Downloading dataset using accession number
 </div>
 </div>
 </div>
+</div>
 <section id="distribution-at-phylum-level" class="level3">
 <h3 class="anchored" data-anchor-id="distribution-at-phylum-level">Distribution at phylum level</h3>
 <p>The below figures visualize the distribution of gut microbiome at phylum rank. We can use these plots to select particular phylum for our further analysis. For example, it can clearly seen that <strong>Bacteroides</strong> and <strong>Firnicutes</strong> are two most abundand phylum in the dataset.</p>
@@ -1031,7 +1041,7 @@ Downloading dataset using accession number
 <div aria-describedby="fig-charts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-1.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1043,7 +1053,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-2.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1055,7 +1065,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-3" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-3.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1069,7 +1079,7 @@ Downloading dataset using accession number
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-4" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-4.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1081,7 +1091,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-5" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-5.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1093,7 +1103,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-6" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-6.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1107,7 +1117,7 @@ Downloading dataset using accession number
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-7" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-7.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1119,7 +1129,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-8" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-8.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1131,7 +1141,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-9" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-9.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1145,7 +1155,7 @@ Downloading dataset using accession number
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-10" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-10.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1157,7 +1167,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-11" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-11.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1169,7 +1179,7 @@ Downloading dataset using accession number
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts-12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts-12" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts-output-12.png" class="img-fluid figure-img" data-ref-parent="fig-charts">
@@ -1221,7 +1231,7 @@ Figure&nbsp;1: Distribution at phylum rank
 <div aria-describedby="fig-charts2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-1.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1233,7 +1243,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-2.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1245,7 +1255,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-3" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-3.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1259,7 +1269,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-4" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-4.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1271,7 +1281,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-5" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-5.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1283,7 +1293,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-6" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-6.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1297,7 +1307,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-7" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-7.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1309,7 +1319,7 @@ Figure&nbsp;1: Distribution at phylum rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts2" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts2-8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts2-8" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts2-output-8.png" class="img-fluid figure-img" data-ref-parent="fig-charts2">
@@ -1332,7 +1342,7 @@ Figure&nbsp;2: Distribution at genus rank
 <h3 class="anchored" data-anchor-id="statistical-significance">Statistical significance</h3>
 <p>Based on our understanding of different taxa at the genus level, we filtered out 8 different types of genus for our statistical analysis. We will use <strong>Kruska Wallis</strong> statistical test for testing the null hypothesis that the <strong>medians of relative abundance of microbial organisms of our selected genus levels are same</strong>.</p>
 <p>There are two different genus (Eubacterium and Ruminococcus) whose differences among healthy, adenoma and CRC patients were found statistically significant.</p>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th>Genus</th>
@@ -1391,7 +1401,7 @@ Figure&nbsp;2: Distribution at genus rank
 <div aria-describedby="fig-charts3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-1.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1403,7 +1413,7 @@ Figure&nbsp;2: Distribution at genus rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-2.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1415,7 +1425,7 @@ Figure&nbsp;2: Distribution at genus rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-3" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-3.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1429,7 +1439,7 @@ Figure&nbsp;2: Distribution at genus rank
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-4" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-4.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1441,7 +1451,7 @@ Figure&nbsp;2: Distribution at genus rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-5" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-5.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1453,7 +1463,7 @@ Figure&nbsp;2: Distribution at genus rank
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts3" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-charts3-6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts3-6" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts3-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts3-output-6.png" class="img-fluid figure-img" data-ref-parent="fig-charts3">
@@ -1513,7 +1523,7 @@ Figure&nbsp;3: Alpha diversity measures
 <div aria-describedby="fig-charts4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts4" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-charts4-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts4-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts4-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts4-output-1.png" class="img-fluid figure-img" data-ref-parent="fig-charts4">
@@ -1525,7 +1535,7 @@ Figure&nbsp;3: Alpha diversity measures
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts4" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-charts4-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts4-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts4-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts4-output-2.png" class="img-fluid figure-img" data-ref-parent="fig-charts4">
@@ -1581,7 +1591,7 @@ Figure&nbsp;4: Dimensionality reduction
 <div aria-describedby="fig-charts5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts5" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-charts5-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts5-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts5-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts5-output-1.png" class="img-fluid figure-img" data-ref-parent="fig-charts5">
@@ -1593,7 +1603,7 @@ Figure&nbsp;4: Dimensionality reduction
 </div>
 </div>
 <div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-charts5" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-charts5-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-charts5-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-charts5-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="meta_analysis_files/figure-html/fig-charts5-output-2.png" class="img-fluid figure-img" data-ref-parent="fig-charts5">
@@ -1655,7 +1665,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1687,47 +1708,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1762,11 +1743,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
